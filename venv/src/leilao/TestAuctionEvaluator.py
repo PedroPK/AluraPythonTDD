@@ -6,13 +6,8 @@ from dominio import Usuario, Lance, Leilao, AuctionEvaluator
 class TestAuctionEvaluator(TestCase):
 
     def test_evaluate_twoBids_withSmallerBidFirst(self):
-        gui     =   Usuario('Guilherme')
-        yuri    =   Usuario('Yuri')
+        lance_gui, lance_yuri, lance_vini, leilao = self.create_scenario()
 
-        lance_yuri      =   Lance(yuri, 100.0)
-        lance_gui       =   Lance(gui,  150.0)
-
-        leilao  =   Leilao('Celular')
         leilao.lances.append(lance_yuri)
         leilao.lances.append(lance_gui)
 
@@ -26,13 +21,8 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(maiorExperado, evaluator.bigger_bid)
 
     def test_evaluate_twoBids_withBiggerBidFirst(self):
-        gui     =   Usuario('Guilherme')
-        yuri    =   Usuario('Yuri')
+        lance_gui, lance_yuri, lance_vini, leilao = self.create_scenario()
 
-        lance_gui       =   Lance(gui,  150.0)
-        lance_yuri      =   Lance(yuri, 100.0)
-
-        leilao  =   Leilao('Celular')
         leilao.lances.append(lance_gui)
         leilao.lances.append(lance_yuri)
 
@@ -46,12 +36,9 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(maiorExperado, evaluator.bigger_bid)
 
     def test_evaluate_withOnlyOneBid(self):
-        gui     =   Usuario("Guilherme")
+        lance_gui, lance_yuri, lance_vini, leilao = self.create_scenario()
 
-        lance   =   Lance(gui, 150.0)
-
-        leilao  =   Leilao("Celular")
-        leilao.lances.append(lance)
+        leilao.lances.append(lance_gui)
 
         evaluator   =   AuctionEvaluator()
         evaluator.evaluate(leilao)
@@ -60,15 +47,8 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(150.0,     evaluator.bigger_bid )
 
     def test_evaluate_withThreeBids_inGrowingOrder(self):
-        gui     =   Usuario('Guilherme')
-        yuri    =   Usuario('Yuri')
-        vini    =   Usuario("Vinicius")
+        lance_gui, lance_yuri, lance_vini, leilao = self.create_scenario()
 
-        lance_yuri  =   Lance(yuri, 100.0)
-        lance_gui   =   Lance(gui, 150.0)
-        lance_vini  =   Lance(vini, 200.0)
-
-        leilao = Leilao('Celular')
         leilao.lances.append(lance_yuri)
         leilao.lances.append(lance_gui)
         leilao.lances.append(lance_vini)
@@ -81,6 +61,20 @@ class TestAuctionEvaluator(TestCase):
 
         self.assertEqual(menorExpected, evaluator.smaller_bid)
         self.assertEqual(maiorExperado, evaluator.bigger_bid)
+
+    def create_scenario(self):
+        gui = Usuario('Guilherme')
+        yuri = Usuario('Yuri')
+        vini = Usuario("Vinicius")
+
+        lance_yuri = Lance(yuri, 100.0)
+        lance_gui = Lance(gui, 150.0)
+        lance_vini = Lance(vini, 200.0)
+
+        leilao = Leilao('Celular')
+
+        return lance_gui, lance_yuri, lance_vini, leilao
+
 
 if __name__ == '__main__':
     unittest.main()
