@@ -15,7 +15,10 @@
 !cp /content/drive/MyDrive/Alura/Python/TDD/testes-python-projeto-inicial/src/leilao/dominio.py
 '''
 
-from dominio import Usuario, Lance, Leilao, AuctionEvaluator
+from Auction          import Leilao
+from Bid              import Lance
+from User             import Usuario
+from AuctionEvaluator import AuctionEvaluator
 
 guilherme = Usuario("Guilherme")
 yuri      = Usuario("Yuri")

@@ -1,6 +1,14 @@
 from unittest import TestCase
 import unittest
-from dominio import Usuario, Lance, Leilao, AuctionEvaluator
+
+# To allow import the Python files in "domain" folder
+import sys
+sys.path.append('../')
+
+from domain.Auction          import Leilao
+from domain.Bid              import Lance
+from domain.User             import Usuario
+from domain.AuctionEvaluator import AuctionEvaluator
 
 
 class TestAuctionEvaluator(TestCase):
