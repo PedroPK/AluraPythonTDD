@@ -28,8 +28,8 @@ lance_yuri        = Lance(yuri,       100.0)
 
 leilao = Leilao("celular")
 
-leilao.lances.append(lance_yuri)
-leilao.lances.append(lance_guilherme)
+leilao.propose(lance_yuri)
+leilao.propose(lance_guilherme)
 
 
 for lance in leilao.lances:

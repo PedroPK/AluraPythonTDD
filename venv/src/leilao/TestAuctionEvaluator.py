@@ -26,8 +26,8 @@ class TestAuctionEvaluator(TestCase):
 
 
     def test_evaluate_twoBids_withSmallerBidFirst(self):
-        self.leilao.lances.append(self.lance_yuri)
-        self.leilao.lances.append(self.lance_gui)
+        self.leilao.propose(self.lance_yuri)
+        self.leilao.propose(self.lance_gui)
 
         evaluator   =   AuctionEvaluator()
         evaluator.evaluate(self.leilao)
@@ -39,8 +39,8 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(maiorExperado, evaluator.bigger_bid)
 
     def test_evaluate_twoBids_withBiggerBidFirst(self):
-        self.leilao.lances.append(self.lance_gui)
-        self.leilao.lances.append(self.lance_yuri)
+        self.leilao.propose(self.lance_gui)
+        self.leilao.propose(self.lance_yuri)
 
         evaluator   =   AuctionEvaluator()
         evaluator.evaluate(self.leilao)
@@ -52,7 +52,7 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(maiorExperado, evaluator.bigger_bid)
 
     def test_evaluate_withOnlyOneBid(self):
-        self.leilao.lances.append(self.lance_gui)
+        self.leilao.propose(self.lance_gui)
 
         evaluator   =   AuctionEvaluator()
         evaluator.evaluate(self.leilao)
@@ -61,9 +61,9 @@ class TestAuctionEvaluator(TestCase):
         self.assertEqual(150.0,     evaluator.bigger_bid )
 
     def test_evaluate_withThreeBids_inGrowingOrder(self):
-        self.leilao.lances.append(self.lance_yuri)
-        self.leilao.lances.append(self.lance_gui)
-        self.leilao.lances.append(self.lance_vini)
+        self.leilao.propose(self.lance_yuri)
+        self.leilao.propose(self.lance_gui)
+        self.leilao.propose(self.lance_vini)
 
         evaluator = AuctionEvaluator()
         evaluator.evaluate(self.leilao)
